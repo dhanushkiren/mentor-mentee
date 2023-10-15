@@ -19,3 +19,9 @@ To see the page edi the URL after loading page like "http://localhost:3000/home"
 
 The page will reload when you make changes.\
 
+Detailed Steps to run the application
+
+1. download the project
+2. open terminal and type 'npm install' or 'npm install --force' to \
+download dependencies.
+3. run the application 'npm start'
