@@ -1,4 +1,4 @@
-import { AttachMoney, BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Report, Storefront, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material"
+import { AttachMoney, BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material"
 import React from "react"
 import "./Sidebar.css"
 import { Link } from "react-router-dom"

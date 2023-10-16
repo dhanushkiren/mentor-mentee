@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Loadable from '../components/Loadable'
 import Login from "../pages/ResuableComponents/Login/Login";
