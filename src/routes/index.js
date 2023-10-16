@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Loadable from '../components/Loadable'
-import Login from "../pages/ResuableComponents/Login/Login";
 
 const Home = Loadable(lazy(() =>import("../pages/home/Home")));
 const UserList = Loadable(lazy(() =>import("../pages/userList/UserList")));
@@ -27,7 +26,7 @@ const ThemeRoutes = () => {
         <Route path="/products" element={<ProductsList />} />
         <Route path="/Staff" element={<Staff />} />
         <Route path="/Student" element={<Student />} />
-        <Route path="/login" element={<Login />} />
+        
       </Routes>
     </div>
   </>
