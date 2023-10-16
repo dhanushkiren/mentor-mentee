@@ -41,9 +41,9 @@ const ThemeRoutes = () => {
           <Route path="/Student">
             <Student />
           </Route>
-          <Route path="/login">
+          {/* <Route path="/login">
             <Login />
-          </Route>
+          </Route> */}
         </Switch>
       </div>
     </>
