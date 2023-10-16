@@ -1,5 +1,5 @@
 import { lazy, useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Loadable from '../components/Loadable'
 import Login from "../pages/ResuableComponents/Login/Login";
 
@@ -16,37 +16,21 @@ const Topbar = Loadable(lazy(() =>import("../components/topbar/Topbar")));
 const ThemeRoutes = () => {
   return (
     <>
-      <Topbar />
-      <div className="appContainer">
-        <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/users">
-            <UserList />
-          </Route>
-          <Route path="/user/:userId">
-            <User />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/products">
-            <ProductsList />
-          </Route>
-          <Route path="/Staff">
-            <Staff />
-          </Route>
-          <Route path="/Student">
-            <Student />
-          </Route>
-          {/* <Route path="/login">
-            <Login />
-          </Route> */}
-        </Switch>
-      </div>
-    </>
+    <Topbar />
+    <div className="appContainer">
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/user/:userId" element={<User />} />
+        <Route path="/newUser" element={<NewUser />} />
+        <Route path="/products" element={<ProductsList />} />
+        <Route path="/Staff" element={<Staff />} />
+        <Route path="/Student" element={<Student />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </div>
+  </>
   );
 };
 

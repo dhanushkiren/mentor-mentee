@@ -69,14 +69,6 @@ const Sidebar = () => {
                 <WorkOutline className='sidebarIcon' />
                 Logout
               </Link>
-              {/* <Link className='sidebarListItem'>
-                <Timeline className='sidebarIcon' />
-                Analytics
-              </Link>
-              <Link className='sidebarListItem'>
-                <Report className='sidebarIcon' />
-                Reports
-              </Link> */}
             </ul>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { emailValidator, passwordValidator } from '../../../components/regexValidator';
-import {useHistory} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
-	const history = useHistory()
+	const navigate = useNavigate();
 
 	const [input, setInput] = React.useState({ email: '', password: '' });
 
@@ -14,9 +14,9 @@ const Login = () => {
 		setInput({ ...input, [e.target.name]: e.target.value });
 	};
 
-	React.useEffect(()=>{
-		if(localStorage.getItem('auth')) history.push('/')
-	},[])
+	React.useEffect(() => {
+		if (localStorage.getItem('auth')) navigate("/");
+	}, [navigate]);
 
 	const formSubmitter = e => {
 		e.preventDefault();
@@ -30,7 +30,7 @@ const Login = () => {
 		// setsuccessMessage('Successfully Validated');
 		if(input.email !== 'admin@a.com' || input.password !== 'Password@1') return seterrorMessage('Invalid email or password');
 
-		history.push('/')
+		navigate("/");
 		localStorage.setItem('auth', true)
 
 	};

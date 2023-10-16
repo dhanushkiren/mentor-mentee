@@ -46,7 +46,7 @@ const Student = () => {
         <div className="student">
             <h2>Student List</h2>
             <div style={{ height: 650, width: '100%' }}>
-                <DataGrid rows={studentData} columns={columns} pageSize={10} rowsPerPageOptions={[5]} />
+                <DataGrid rows={studentData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} />
             </div>
         </div>
     );
