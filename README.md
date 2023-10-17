@@ -25,3 +25,6 @@ Detailed Steps to run the application
 2. open terminal and type 'npm install' or 'npm install --force' to \
 download dependencies.
 3. run the application 'npm start'
+
+4. For login username = admin@a.com
+        password = Password@1
