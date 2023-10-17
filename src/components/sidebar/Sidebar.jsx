@@ -1,8 +1,20 @@
 import { AttachMoney, BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material"
 import React from "react"
 import "./Sidebar.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
+
 const Sidebar = () => {
+  const { dispatch } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("authenticated");
+    window.location.reload();
+    navigate("/login");
+  };
+
   return (
     <>
       <div className='sidebar'>
@@ -65,7 +77,7 @@ const Sidebar = () => {
           <div className='sidebarMenu'>
             <h3>Session</h3>
             <ul className='sidebarList'>
-              <Link className='sidebarListItem '>
+              <Link className="sidebarLink" onClick={handleLogout}>
                 <WorkOutline className='sidebarIcon' />
                 Logout
               </Link>

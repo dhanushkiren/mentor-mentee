@@ -1,21 +1,23 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import { emailValidator, passwordValidator } from '../../../components/regexValidator';
 import {useNavigate} from "react-router-dom"
+import { useAuth } from '../../../components/AuthContext';
 
 const Login = () => {
+
 	const navigate = useNavigate();
-
-	const [input, setInput] = React.useState({ email: '', password: '' });
-
-	const [errorMessage, seterrorMessage] = React.useState('');
-	const [successMessage, setsuccessMessage] = React.useState('');
+	const { dispatch, state } = useAuth();
+	const [input, setInput] = useState({ email: '', password: '' });
+	const [errorMessage, seterrorMessage] = useState('');
+	const [successMessage, setsuccessMessage] = useState('');
 
 	const handleChange = e => {
 		setInput({ ...input, [e.target.name]: e.target.value });
 	};
 
-	React.useEffect(() => {
-		if (localStorage.getItem('auth')) navigate("/");
+	useEffect(() => {
+		if (localStorage.getItem('authenticated')) navigate("/");
+		setInput({ email: '', password: '' });
 	}, [navigate]);
 
 	const formSubmitter = e => {
@@ -30,8 +32,9 @@ const Login = () => {
 		// setsuccessMessage('Successfully Validated');
 		if(input.email !== 'admin@a.com' || input.password !== 'Password@1') return seterrorMessage('Invalid email or password');
 
+		dispatch({ type: 'LOGIN' });
 		navigate("/");
-		localStorage.setItem('auth', true)
+		localStorage.setItem('authenticated', true);
 
 	};
 
