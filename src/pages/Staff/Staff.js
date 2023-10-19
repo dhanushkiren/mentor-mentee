@@ -1,39 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import './Staff.css';
 import { Link } from "react-router-dom"
 
 const Staff = () => {
-    const [staffData, setStaffData] = useState([
-        { id: 1, name: "John Doe", department: "HR", menteeCount: 5 },
-        { id: 2, name: "Jane Smith", department: "IT", menteeCount: 7 },
-        { id: 3, name: "Alice Johnson", department: "Finance", menteeCount: 3 },
-        { id: 4, name: "Bob Wilson", department: "Marketing", menteeCount: 6 },
-        { id: 5, name: "Ella Davis", department: "Sales", menteeCount: 4 },
-        { id: 6, name: "Sam Brown", department: "IT", menteeCount: 8 },
-        { id: 7, name: "Grace Lee", department: "HR", menteeCount: 2 },
-        { id: 8, name: "Michael Green", department: "Finance", menteeCount: 5 },
-        { id: 9, name: "Olivia Taylor", department: "Marketing", menteeCount: 7 },
-        { id: 10, name: "William Clark", department: "Sales", menteeCount: 4 },
-    ]);
+    const [staffData, setStaffData] = useState([]);
+    const [selectedStaff, setSelectedStaff] = useState(null);
+    
+    useEffect(() => {
+        // Fetch staff data when the component mounts
+        fetch('http://localhost:8081/mentorlist')
+          .then((response) => response.json())
+          .then((data) => setStaffData(data))
+          .catch((error) => console.error('Error fetching staff data:', error));
+      }, []);
+    
+      console.log("staffdata : ",staffData);
 
     const handleDelete = (id) => {
         setStaffData(staffData.filter((staffMember) => staffMember.id !== id));
     };
 
+    const handleEdit = (staff) => {
+        // Set the selected staff member and pass it to the User.js component
+        setSelectedStaff(staff);
+      };
+
     const columns = [
+        { field: 'id', headerName: 'ID', flex: 1 },
+        { field: 'uid', headerName: 'UID', flex: 1 },
         { field: 'name', headerName: 'Name', flex: 1 },
         { field: 'department', headerName: 'Department', flex: 1 },
-        { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'menteeCount', headerName: 'Mentee Student Count', flex: 1 },
+        { field: 'designation', headerName: 'Designation', flex: 1 },
+        { field: 'phone', headerName: 'Phone', flex: 1 },
+        { field: 'email', headerName: 'Email', flex: 1 },
         {
             field: 'actions',
             headerName: 'Actions',
             flex: 1,
             renderCell: (params) => (
                 <>
-                    <Link to={"/user/" + params.row.id}>
+                    <Link to={"/user/" + params.row.uid}>
                         <button className='staffEdit'>Edit</button>
                     </Link>
                     <DeleteOutlineIcon className="staffDelete" onClick={() => handleDelete(params.row.id)} />

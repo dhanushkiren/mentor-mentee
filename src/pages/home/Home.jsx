@@ -15,7 +15,7 @@ const Home = () => {
         <div className='homeWidgets'>
           <Widget />
           <WidgetL />
-          <WidgetL />
+          
         </div>
       </div>
     </>

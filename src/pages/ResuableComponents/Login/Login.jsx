@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import { useAuth } from '../../../components/Context/AuthContext';
 import { useRole } from '../../../components/Context/RoleContext';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { ApiConfig } from '../../../components/ApiConfig';
 
 const Login = () => {
 	const { setRole } = useRole();
@@ -45,7 +46,7 @@ const Login = () => {
 		// localStorage.setItem('authenticated', true);
 		// };
 		try {
-			const response = await fetch('http://localhost:8081/login', {
+			const response = await fetch(ApiConfig.loginApi, {
 			  method: 'POST',
 			  headers: {
 				'Content-Type': 'application/json',

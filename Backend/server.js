@@ -25,6 +25,7 @@ db.connect((err) => {
   }
 });
 
+// login 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const query = `SELECT * FROM admin WHERE uid = ? AND pass = ?`;
@@ -45,6 +46,75 @@ app.post('/login', (req, res) => {
         res.status(401).send('Invalid Credentials');
         console.log("Invalid Credentials");
       }
+    }
+  });
+});
+
+// mentor count 
+app.get('/mentors/count', (req, res) => {
+  const query = 'SELECT COUNT(*) as count FROM mentor';
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ count: result[0].count });
+    }
+  });
+});
+
+// mentee count
+app.get('/mentees/count', (req, res) => {
+  const query = 'SELECT COUNT(*) as count FROM mentee';
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ count: result[0].count });
+    }
+  });
+});
+
+// mentor list
+app.get('/mentorlist', (req, res) => {
+  const query = 'SELECT * FROM mentor';
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      const data = res.status(200).json(result);
+      console.log("sample",data);
+    }
+  });
+});
+
+// delete staff
+app.delete('/staff/:id', (req, res) => {
+  const { id } = req.params;
+  const query = 'DELETE FROM staff WHERE id = ?';
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.error('Error deleting staff record:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ message: 'Staff record deleted successfully' });
+    }
+  });
+});
+
+//update staff
+app.put('/staff/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, department, designation, email, phone } = req.body;
+  const query = 'UPDATE staff SET name = ?, department = ?, designation = ?, email = ?, phone = ? WHERE id = ?';
+  db.query(query, [name, department, designation, email, phone, id], (err, result) => {
+    if (err) {
+      console.error('Error updating staff record:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ message: 'Staff record updated successfully' });
     }
   });
 });
