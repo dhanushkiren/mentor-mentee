@@ -1,26 +1,34 @@
 import React,{ useEffect, useState } from 'react';
 import { emailValidator, passwordValidator } from '../../../components/regexValidator';
 import {useNavigate} from "react-router-dom"
-import { useAuth } from '../../../components/AuthContext';
+import { useAuth } from '../../../components/Context/AuthContext';
+import { useRole } from '../../../components/Context/RoleContext';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
+	const { setRole } = useRole();
 
 	const navigate = useNavigate();
 	const { dispatch, state } = useAuth();
 	const [input, setInput] = useState({ email: '', password: '' });
 	const [errorMessage, seterrorMessage] = useState('');
 	const [successMessage, setsuccessMessage] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 
 	const handleChange = e => {
 		setInput({ ...input, [e.target.name]: e.target.value });
 	};
+
+	const handleTogglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
+	  };
 
 	useEffect(() => {
 		if (localStorage.getItem('authenticated')) navigate("/");
 		setInput({ email: '', password: '' });
 	}, [navigate]);
 
-	const formSubmitter = e => {
+	const formSubmitter = async(e) => {
 		e.preventDefault();
 		setsuccessMessage('');
 		if (!emailValidator(input.email)) return seterrorMessage('Please enter valid email id');
@@ -30,13 +38,44 @@ const Login = () => {
 				'Password should have minimum 8 character with the combination of uppercase, lowercase, numbers and specialcharaters'
 			);
 		// setsuccessMessage('Successfully Validated');
-		if(input.email !== 'admin@a.com' || input.password !== 'Password@1') return seterrorMessage('Invalid email or password');
+		// if(input.email !== 'admin@a.com' || input.password !== 'Password@1') return seterrorMessage('Invalid email or password');
 
-		dispatch({ type: 'LOGIN' });
-		navigate("/");
-		localStorage.setItem('authenticated', true);
+		// dispatch({ type: 'LOGIN' });
+		// navigate("/");
+		// localStorage.setItem('authenticated', true);
+		// };
+		try {
+			const response = await fetch('http://localhost:8081/login', {
+			  method: 'POST',
+			  headers: {
+				'Content-Type': 'application/json',
+			  },
+			  body: JSON.stringify({
+				username: input.email,
+				password: input.password,
+			  }),
+			});
+		
+			if (response.ok) {
+			  // Successful login
+			  const data = await response.json();
+			  dispatch({ type: 'LOGIN' });
+			  localStorage.setItem('authenticated', true);
+			  localStorage.setItem('userRole', data.role);
+			  setRole(data.role);
+			  window.location.reload();
+			  navigate('/');
+			  
+			} else {
+			  // Invalid credentials
+			  seterrorMessage('Invalid email or password');
+			}
+		  } catch (error) {
+			console.error('Error during login:', error);
+			seterrorMessage('Something went wrong. Please try again.');
+		  }
+		};
 
-	};
 
 	return (
 		<div>
@@ -62,15 +101,27 @@ const Login = () => {
 							</div>
 							<div className="wrap-input100 validate-input" data-validate="Password is required">
 								<span className="label-input100">Password</span>
-								<input
+								<span className="focus-input100" data-symbol="" />
+								<div style={{ display: "flex" }}>
+									<input
 									className="input100"
-									type="password"
+									type={showPassword ? "text" : "password"}
 									name="password"
 									placeholder="Type your password"
 									onChange={handleChange}
-								/>
-								<span className="focus-input100" data-symbol="" />
-							</div>
+									/>
+									<span
+									onClick={handleTogglePasswordVisibility}
+									style={{
+										cursor: "pointer",
+										display: "flex",
+										alignItems: "center",
+									}}
+									>
+									{showPassword ? <Visibility /> : <VisibilityOff />}
+									</span>
+								</div>
+								</div>
 							<div className="text-right p-t-8 p-b-31">
 								<a href="/login">Forgot password?</a>
 							</div>

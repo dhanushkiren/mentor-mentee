@@ -1,7 +1,7 @@
-import { lazy, useContext } from "react";
+import { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Loadable from '../components/Loadable'
-import { useAuth } from '../components/AuthContext';
+import { useAuth } from '../components/Context/AuthContext';
 
 
 const Home = Loadable(lazy(() =>import("../pages/home/Home")));
