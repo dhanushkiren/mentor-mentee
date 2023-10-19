@@ -11,7 +11,7 @@ const Home = () => {
     <>
       <div className='home'>
         <Feature />
-        <Chart data={UserData} title='User Analytics' grid dataKey='Active User' />
+        {/* <Chart data={UserData} title='User Analytics' grid dataKey='Active User' /> */}
         <div className='homeWidgets'>
           <Widget />
           <WidgetL />
