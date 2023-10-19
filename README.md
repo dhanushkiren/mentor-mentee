@@ -26,8 +26,25 @@ Detailed Steps to run the application
 download dependencies.
 3. run the application 'npm start'
 
-4. For login username = admin@a.com
-        password = Password@1
+4. admin@1
+Admin@123456
 
-        hi
+mentor@1
+Mentor@111
+
+mentor@2
+Mentor@222
+
+mentee@1
+Mentee@111
+
+	
+mentee@2
+Mentee@222
+
+mentee@3
+Mentee@333
+
+mentee@4
+Mentee@444
         
