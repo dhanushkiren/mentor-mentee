@@ -1,6 +1,4 @@
 import React from "react"
-import Chart from "../../components/chart/Chart"
-import { UserData } from "../../Data"
 import Feature from "../../components/feature/Feature"
 import WidgetL from "../../components/widgetLs/WidgetL"
 import Widget from "../../components/widgetSm/Widget"

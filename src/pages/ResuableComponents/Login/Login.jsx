@@ -8,9 +8,8 @@ import { ApiConfig } from '../../../components/ApiConfig';
 
 const Login = () => {
 	const { setRole } = useRole();
-
 	const navigate = useNavigate();
-	const { dispatch, state } = useAuth();
+	const { dispatch } = useAuth();
 	const [input, setInput] = useState({ email: '', password: '' });
 	const [errorMessage, seterrorMessage] = useState('');
 	const [successMessage, setsuccessMessage] = useState('');

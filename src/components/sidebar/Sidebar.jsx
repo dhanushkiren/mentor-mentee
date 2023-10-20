@@ -1,5 +1,5 @@
 import React from "react";
-import { AttachMoney, BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material";
+import { BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, WorkOutline } from "@mui/icons-material";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
@@ -53,7 +53,7 @@ const Sidebar = () => {
                     <PersonOutline className="sidebarIcon" />
                     Add Staff
                   </Link>
-                  <Link to="/products" className="sidebarListItem">
+                  <Link to="/mentees" className="sidebarListItem">
                     <Storefront className="sidebarIcon" />
                     Add Student
                   </Link>

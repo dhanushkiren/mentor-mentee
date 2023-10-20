@@ -39,7 +39,6 @@ app.post('/login', (req, res) => {
       if (result.length > 0) {
         console.log("result: ", result);
         const role = result[0].role;
-        console.log("role : ",role);
         res.status(200).json({ message: 'Login Successful', role: role });
         console.log("login success");
       } else {
@@ -84,14 +83,26 @@ app.get('/mentorlist', (req, res) => {
       console.error('Error executing query:', err);
       res.status(500).send('Internal Server Error');
     } else {
-      const data = res.status(200).json(result);
-      console.log("sample",data);
+      res.status(200).json(result);
+    }
+  });
+});
+
+// mentee list
+app.get('/menteelist', (req, res) => {
+  const query = 'SELECT * FROM mentee';
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json(result);
     }
   });
 });
 
 // delete staff
-app.delete('/staff/:id', (req, res) => {
+app.delete('/staff/:userId', (req, res) => {
   const { id } = req.params;
   const query = 'DELETE FROM staff WHERE id = ?';
   db.query(query, [id], (err, result) => {
@@ -105,16 +116,54 @@ app.delete('/staff/:id', (req, res) => {
 });
 
 //update staff
-app.put('/staff/:id', (req, res) => {
-  const { id } = req.params;
+app.put('/staffupdate/:id', (req, res) => {
+  const id = +req.params.id;
+  console.log(id);
   const { name, department, designation, email, phone } = req.body;
-  const query = 'UPDATE staff SET name = ?, department = ?, designation = ?, email = ?, phone = ? WHERE id = ?';
+  const query = 'UPDATE mentor SET name = ?, department = ?, designation = ?, email = ?, phone = ? WHERE id = ?';
   db.query(query, [name, department, designation, email, phone, id], (err, result) => {
     if (err) {
       console.error('Error updating staff record:', err);
       res.status(500).send('Internal Server Error');
     } else {
       res.status(200).json({ message: 'Staff record updated successfully' });
+    }
+  });
+});
+
+//mentee update
+app.put('/menteeupdate/:id', (req, res) => {
+  const id = +req.params.id;
+  console.log(id);
+  const { name, department, year, mentorId, achievements } = req.body;
+  const query = 'UPDATE mentee SET name = ?, department = ?, year = ?, mentor_uid = ?, achievements = ? WHERE id = ?';
+  db.query(query, [name, department, year, mentorId, achievements, id], (err, result) => {
+    if (err) {
+      console.error('Error updating mentee record:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ message: 'Mentee record updated successfully' });
+    }
+  });
+});
+
+
+// solo data 
+app.get('/userdata/:id', (req, res) => {
+  const { id } = req.params; // Get the `id` parameter from the URL
+  const query = 'SELECT * FROM mentor WHERE id = ?'; // Adjust the table name and query as needed
+
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      if (result.length > 0) {
+        const userData = result[0];
+        res.status(200).json(userData);
+      } else {
+        res.status(404).send('User not found');
+      }
     }
   });
 });

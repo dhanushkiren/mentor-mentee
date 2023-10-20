@@ -1,29 +1,63 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import "./ProductsList.css"
 import { DataGrid } from "@mui/x-data-grid"
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
+// import { UserRows } from "../../Data"
+import { Link } from "react-router-dom"
 
 const ProductsList = () => {
+  const [menteeData, setMenteeData] = useState([]);
+  
+    useEffect(() => {
+        // Fetch staff data when the component mounts
+        fetch('http://localhost:8081/menteelist')
+          .then((response) => response.json())
+          .then((data) => setMenteeData(data))
+          .catch((error) => console.error('Error fetching staff data:', error));
+      }, []);
 
-  const data = [
-    { id: 1, name: "Product A", price: 10 },
-    { id: 2, name: "Product B", price: 15 },
-    // Add more data as needed
-  ];
+      // useEffect(() => {
+      //   window.location.reload();
+      // },[staffData]);
+    
+  //     console.log("staffdata : ",staffData);
+  // const [data, setData] = useState(UserRows)
+ 
+  const handleDelete = (id) => {
+    setMenteeData(menteeData.filter((menteeMember) => menteeMember.id !== id));
+};
 
   const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'price', headerName: 'Price', width: 150 },
-    // Add more columns as needed
-  ];
-  
-  return (
-    <>
-      <div className='ProductsList'>
-        <DataGrid rows={data} disableSelectionOnClick columns={columns} pageSize={8} rowsPerPageOptions={[5]} checkboxSelection />
-      </div>
-    </>
-  )
-}
+    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'uid', headerName: 'UID', flex: 1 },
+    { field: 'name', headerName: 'Name', flex: 1 },
+    { field: 'department', headerName: 'Department', flex: 1 },
+    { field: 'mentor_uid', headerName: 'Mentor ID', flex: 1 },
+    { field: 'year', headerName: 'Year', flex: 1 },
+    { field: 'achievements', headerName: 'Achievements', flex: 1 },
+    {
+        field: 'actions',
+        headerName: 'Actions',
+        flex: 1,
+        renderCell: (params) => (
+            <>
+            <Link to={`/mentee/${params.row.id}`} state={menteeData}>
+              <button className='ProductsListEdit'>Edit</button>
+            </Link>
+            <DeleteOutlineIcon className='ProductsListDelete' onClick={() => handleDelete(params.row.id)} />
+            </>
+        ),
+    },
+];
+
+return (
+    <div className="ProductsList">
+        <h2>Mentee List</h2>
+        <div style={{ height: 650, width: '100%' }}>
+            <DataGrid rows={menteeData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} />
+        </div>
+    </div>
+);
+};
 
 export default ProductsList

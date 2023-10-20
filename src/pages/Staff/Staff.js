@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+// import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import './Staff.css';
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 
 const Staff = () => {
     const [staffData, setStaffData] = useState([]);
-    const [selectedStaff, setSelectedStaff] = useState(null);
     
     useEffect(() => {
         // Fetch staff data when the component mounts
@@ -18,14 +17,14 @@ const Staff = () => {
     
       console.log("staffdata : ",staffData);
 
-    const handleDelete = (id) => {
-        setStaffData(staffData.filter((staffMember) => staffMember.id !== id));
-    };
+    // const handleDelete = (id) => {
+    //     setStaffData(staffData.filter((staffMember) => staffMember.id !== id));
+    // };
 
-    const handleEdit = (staff) => {
-        // Set the selected staff member and pass it to the User.js component
-        setSelectedStaff(staff);
-      };
+    // const handleEdit = (staff) => {
+    //     // Set the selected staff member and pass it to the User.js component
+    //     setSelectedStaff(staff);
+    //   };
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -36,17 +35,17 @@ const Staff = () => {
         { field: 'phone', headerName: 'Phone', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
         {
-            field: 'actions',
-            headerName: 'Actions',
-            flex: 1,
-            renderCell: (params) => (
-                <>
-                    <Link to={"/user/" + params.row.uid}>
-                        <button className='staffEdit'>Edit</button>
-                    </Link>
-                    <DeleteOutlineIcon className="staffDelete" onClick={() => handleDelete(params.row.id)} />
-                </>
-            ),
+            // field: 'actions',
+            // headerName: 'Actions',
+            // flex: 1,
+            // renderCell: (params) => (
+            //     <>
+            //          <Link to={`/user/${params.row.id}`}>
+            //             <button className='staffEdit'>Edit</button>
+            //         </Link>
+            //         <DeleteOutlineIcon className="staffDelete" onClick={() => handleDelete(params.row.id)} />
+            //     </>
+            // ),
         },
     ];
 

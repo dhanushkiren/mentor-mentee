@@ -1,208 +1,204 @@
-// import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from "@mui/icons-material"
-// import React from "react"
-// import "./user.css"
-// import { Link } from "react-router-dom"
-// const User = () => {
-//   return (
-//     <>
-//       <div className='user'>
-//         <div className='userTitleContainer'>
-//           <h1>Edit User</h1>
-//           <Link to='/newUser'>
-//             <button>Create</button>
-//           </Link>
-//         </div>
+import { Publish } from "@mui/icons-material"
+import React, { useState } from "react"
+import "./user.css"
+import { Link, useParams,useLocation, useNavigate } from "react-router-dom";
 
-//         <div className='userContainer'>
-//           <div className='userShow'>
-//             <div className='userShowTop'>
-//               <img src='https://images.pexels.com/photos/1557843/pexels-photo-1557843.jpeg?cs=srgb&dl=pexels-arnie-chou-1557843.jpg&fm=jpg' alt='' />
-//               <div className='userShowTopTitle'>
-//                 <h3>Anna Becker</h3>
-//                 <span>Software Enginner</span>
-//               </div>
-//             </div>
-//             <div className='userShowBottom'>
-//               <h3>Account Details</h3>
-//               <div className='userShowInfo'>
-//                 <PermIdentity className='userShowIcon' />
-//                 <span>annbace99</span>
-//               </div>
-//               <div className='userShowInfo'>
-//                 <CalendarToday className='userShowIcon' />
-//                 <span>1999.08.24</span>
-//               </div>
-//               <h3>Contact Details</h3>
-//               <div className='userShowInfo'>
-//                 <PhoneAndroid className='userShowIcon' />
-//                 <span>9813253082</span>
-//               </div>
-//               <div className='userShowInfo'>
-//                 <MailOutline className='userShowIcon' />
-//                 <span>annbace99@gmail.com</span>
-//               </div>
-//               <div className='userShowInfo'>
-//                 <LocationSearching className='userShowIcon' />
-//                 <span>New York </span>
-//               </div>
-//             </div>
-//           </div>
-//           <div className='userUpdate'>
-//             <h3>Edit</h3>
-//             <form action='' className='userUpdateForm'>
-//               <div className='userUpdateLeft'>
-//                 <div className='userUpdateLeftItmes'>
-//                   <label>Username</label>
-//                   <input type='text' placeholder='annabeck99' className='userUpdateInput' />
-//                 </div>
-//                 <div className='userUpdateLeftItmes'>
-//                   <label>Full Name</label>
-//                   <input type='text' placeholder='Anna Beck ' className='userUpdateInput' />
-//                 </div>
-//                 <div className='userUpdateLeftItmes'>
-//                   <label>Email</label>
-//                   <input type='text' placeholder='annabeck99@gmail.com ' className='userUpdateInput' />
-//                 </div>
-//                 <div className='userUpdateLeftItmes'>
-//                   <label>Phone</label>
-//                   <input type='text' placeholder='+ 123 456 7894' className='userUpdateInput' />
-//                 </div>
-//                 <div className='userUpdateLeftItmes'>
-//                   <label>Address</label>
-//                   <input type='text' placeholder='New York / USA' className='userUpdateInput' />
-//                 </div>
-//               </div>
-//               <div className='userUpdateRight'>
-//                 <div className='userUpdateUpload'>
-//                   <img className='userUpdateImg' src='https://images.pexels.com/photos/1116380/pexels-photo-1116380.jpeg?cs=srgb&dl=pexels-ba-phi-1116380.jpg&fm=jpg' alt='' />
-//                   <label htmlFor='file'>
-//                     <Publish className='userUpdateIcon' />
-//                   </label>
-//                   <input type='file' id='file' style={{ display: "none" }} />
-//                 </div>
-//                 <button className='userUpdateButton'>Update</button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default User
-
-
-import React, { useState, useEffect } from 'react';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@mui/icons-material';
-import './user.css';
-
-const User = ({ staffData }) => {
-  const [userData, setUserData] = useState({
-    id: 0,
-    name: '',
-    department: '',
-    designation: '',
-    email: '',
-    phone: '',
-  });
-
-  console.log("staff Data to show:",staffData);
-
-  useEffect(() => {
-    if (staffData) {
-      setUserData({
-        id: staffData.id,
-        name: staffData.name,
-        department: staffData.department,
-        designation: staffData.designation,
-        email: staffData.email,
-        phone: staffData.phone,
-      });
-    }
-  }, [staffData]);
-
-  const handleEditFormChange = (e) => {
+const User = () => {
+  const { userId } = useParams();
+  const navigate =useNavigate();
+  console.log("used :",userId);
+  const locationState = useLocation().state; // Access the state passed from the Link
+  
+  const [userData, setUserData] = useState(locationState);// State to hold user data
+  console.log("data data : ",userData);
+  const index = userId -1 ;
+  const [name, setName] = useState(userData[index] ? userData[index].name : '');
+  const [department, setDepartment] = useState(userData[index] ? userData[index].department : '');
+  const [designation, setDesignation] = useState(userData[index] ? userData[index].Designation : '');
+  const [email, setEmail] = useState(userData[index] ? userData[index].email : '');
+  const [phone, setPhone] = useState(userData[index] ? userData[index].phone : '');
+  console.log("name : ",name);
+  
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "phone":
+        setPhone(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "department":
+        setDepartment(value);
+        break;
+      case "designation":
+        setDesignation(value);
+        break;
+      default:
+        // Handle other input fields if needed
+    }
   };
 
-  const handleEditFormSubmit = () => {
-    // Handle the form submission for editing
-    // Send a PUT request to update the server data
-    fetch('http://localhost:8081/mentor/update', {
-      method: 'PUT',
+  console.log("user data: ",userData[index]);
+  console.log("used after: ",userId);
+
+  const handleUpdate = () => {
+    if(name === '' || department === '' || designation === '' || email === '' || phone === '') return console.error("not be empty");
+    // Create an object with updated data
+    const updatedData = {
+      name,
+      department,
+      designation,
+      email,
+      phone,
+    };
+
+    const updatedUserData = [...userData];
+
+  // Update the specific user's data
+    updatedUserData[index] = updatedData;
+
+    fetch(`http://localhost:8081/staffupdate/${userId}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(updatedData),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle success
-        console.log(data.message); // Success message from the server
-        // You should also update the UI with the edited data if needed
+        console.log("Data updated successfully:", data);
+        // Optionally, you can update the local state with the new data
+        setUserData(updatedData);
       })
-      .catch((error) => console.error('Error updating staff member:', error));
+      .catch((error) => console.error('Error updating user data:', error));
+      navigate('/users');
   };
 
-  return (
-    <div className='user'>
-      <div className='userTitleContainer'>
-        <h1>Edit User</h1>
-      </div>
 
-      <div className='userContainer'>
-        <div className='userShow'>
-          <div className='userShowTop'>
-            {/* Display user data */}
+  return (
+    <>
+      <div className='user'>
+        <div className='userTitleContainer'>
+          <h1>Edit User</h1>
+          <Link to='/newUser'>
+            <button>Create</button>
+          </Link>
+        </div>
+
+        <div className='userContainer'>
+          {/* <div className='userShow'>
+            <div className='userShowTop'>
+              <img src='https://images.pexels.com/photos/1557843/pexels-photo-1557843.jpeg?cs=srgb&dl=pexels-arnie-chou-1557843.jpg&fm=jpg' alt='' />
+              <div className='userShowTopTitle'>
+                <h3>Anna Becker</h3>
+                <span>Software Enginner</span>
+              </div>
+            </div>
+            <div className='userShowBottom'>
+              <h3>Account Details</h3>
+              <div className='userShowInfo'>
+                <PermIdentity className='userShowIcon' />
+                <span>annbace99</span>
+              </div>
+              <div className='userShowInfo'>
+                <CalendarToday className='userShowIcon' />
+                <span>1999.08.24</span>
+              </div>
+              <h3>Contact Details</h3>
+              <div className='userShowInfo'>
+                <PhoneAndroid className='userShowIcon' />
+                <span>9813253082</span>
+              </div>
+              <div className='userShowInfo'>
+                <MailOutline className='userShowIcon' />
+                <span>annbace99@gmail.com</span>
+              </div>
+              <div className='userShowInfo'>
+                <LocationSearching className='userShowIcon' />
+                <span>New York </span>
+              </div>
+            </div>
+          </div> */}
+          <div className='userUpdate'>
+            <h3>Edit</h3>
+            <form action='' className='userUpdateForm'>
+              <div className='userUpdateLeft'>
+                <div className='userUpdateLeftItmes'>
+                  <label>Name</label>
+                  <input 
+                  type='text' 
+                  name="name"
+                  placeholder='name here' 
+                  value={name} 
+                  className='userUpdateInput'
+                  onChange={handleChange}
+                   />
+                </div>
+                <div className='userUpdateLeftItmes'>
+                  <label>Department</label>
+                  <input 
+                  type='text' 
+                  name="dept"
+                  placeholder='Department' 
+                  value={department} 
+                  className='userUpdateInput'
+                  onChange={handleChange}
+                   />
+                </div>
+                <div className='userUpdateLeftItmes'>
+                  <label>Designation</label>
+                  <input 
+                  type='text' 
+                  name="designation"
+                  placeholder='Prof / AP' 
+                  value={designation} 
+                  className='userUpdateInput'
+                  onChange={handleChange} 
+                  />
+                </div>
+                <div className='userUpdateLeftItmes'>
+                  <label>Email</label>
+                  <input 
+                  type='text' 
+                  name="email"
+                  placeholder='annabeck99@gmail.com ' 
+                  value={email} 
+                  className='userUpdateInput'
+                  onChange={handleChange} 
+                  />
+                </div>
+                <div className='userUpdateLeftItmes'>
+                  <label>Phone</label>
+                  <input 
+                  type='text' 
+                  name="phone"
+                  placeholder='+ 123 456 7894' 
+                  value={phone} 
+                  className='userUpdateInput'
+                  onChange={handleChange} 
+                  />
+                </div>
+              </div>
+              <div className='userUpdateRight'>
+                <div className='userUpdateUpload'>
+                  <img className='userUpdateImg' src='https://images.pexels.com/photos/1116380/pexels-photo-1116380.jpeg?cs=srgb&dl=pexels-ba-phi-1116380.jpg&fm=jpg' alt='' />
+                  <label htmlFor='file'>
+                    <Publish className='userUpdateIcon' />
+                  </label>
+                  <input type='file' id='file' style={{ display: "none" }} />
+                </div>
+                <button className='userUpdateButton' onClick={handleUpdate}>Update</button>
+              </div>
+            </form>
           </div>
         </div>
-        <div className='userUpdate'>
-          <h3>Edit</h3>
-          <form action='' className='userUpdateForm'>
-            <div className='userUpdateLeft'>
-              <div className='userUpdateLeftItmes'>
-                <label>Username</label>
-                <input type='text' placeholder={userData.name} name='name' onChange={handleEditFormChange} />
-              </div>
-              <div className='userUpdateLeftItmes'>
-                <label>Department</label>
-                <input type='text' placeholder={userData.department} name='department' onChange={handleEditFormChange} />
-              </div>
-              <div className='userUpdateLeftItmes'>
-                <label>Designation</label>
-                <input type='text' placeholder={userData.designation} name='designation' onChange={handleEditFormChange} />
-              </div>
-              <div className='userUpdateLeftItmes'>
-                <label>Email</label>
-                <input type='email' placeholder={userData.email} name='email' onChange={handleEditFormChange} />
-              </div>
-              <div className='userUpdateLeftItmes'>
-                <label>Phone</label>
-                <input type='text' placeholder={userData.phone} name='phone' onChange={handleEditFormChange} />
-              </div>
-            </div>
-            <div className='userUpdateRight'>
-              <div className='userUpdateUpload'>
-                <img className='userUpdateImg' src='https://example.com/profile-image.jpg' alt='' />
-                <label htmlFor='file'>
-                  <Publish className='userUpdateIcon' />
-                </label>
-                <input type='file' id='file' style={{ display: 'none' }} />
-              </div>
-              <button className='userUpdateButton' onClick={handleEditFormSubmit}>
-                Update
-              </button>
-            </div>
-          </form>
-        </div>
       </div>
-    </div>
-  );
-};
+    </>
+  )
+}
 
-export default User;
+export default User
