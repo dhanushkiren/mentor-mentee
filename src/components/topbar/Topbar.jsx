@@ -24,7 +24,7 @@ const Topbar = () => {
             <div className='topbarIconsContainer'>
               <Settings />
             </div>
-            <img src='https://images.pexels.com/photos/1084554/pexels-photo-1084554.jpeg?cs=srgb&dl=pexels-ba-phi-1084554.jpg&fm=jpg' alt='' className='topAvatar' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' className='topAvatar' />
           </div>
         </div>
       </div>

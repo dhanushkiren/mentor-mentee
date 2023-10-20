@@ -89,13 +89,12 @@ const Sidebar = () => {
                             <WorkOutline className="sidebarIcon" />
                             upload
                           </Link>
-                        
                       )}
                       <Link to='/widget' className="sidebarListItem">
                         <DynamicFeed className="sidebarIcon" />
                         On Duty
                       </Link>
-                      <Link className="sidebarListItem">
+                      <Link to='/DirMsg' className="sidebarListItem">
                         <ChatBubbleOutline className="sidebarIcon" />
                         Messages
                       </Link>

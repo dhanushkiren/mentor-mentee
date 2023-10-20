@@ -8,7 +8,7 @@ const Widget = () => {
         <span className='widgetSmTitle'>Document Verification</span>
         <ul>
         <li style={{borderTop: '1px solid black', paddingTop:'10px'}}>
-            <img src='https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg' alt='' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
             <div className='widgetUser'>
               <span className='widgetUsername'>Dhanush</span>
               <span className='widgetUserTitle'>CSBS</span>
@@ -19,7 +19,7 @@ const Widget = () => {
             </button>
           </li>
           <li style={{borderTop: '1px solid black', paddingTop:'10px'}}>
-            <img src='https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg' alt='' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
             <div className='widgetUser'>
               <span className='widgetUsername'>Balaji</span>
               <span className='widgetUserTitle'> CSBS </span>
@@ -30,7 +30,7 @@ const Widget = () => {
             </button>
           </li>
           <li style={{borderTop: '1px solid black', paddingTop:'10px'}}>
-            <img src='https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg' alt='' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
             <div className='widgetUser'>
               <span className='widgetUsername'>Ganesh</span>
               <span className='widgetUserTitle'>CSBS</span>
@@ -41,7 +41,7 @@ const Widget = () => {
             </button>
           </li>
           {/* <li>
-            <img src='https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg' alt='' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
             <div className='widgetUser'>
               <span className='widgetUsername'>Anna Keller</span>
               <span className='widgetUserTitle'>Software WEnginner</span>
@@ -52,7 +52,7 @@ const Widget = () => {
             </button>
           </li>
           <li>
-            <img src='https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg' alt='' />
+            <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
             <div className='widgetUser'>
               <span className='widgetUsername'>Anna Keller</span>
               <span className='widgetUserTitle'>Software WEnginner</span>

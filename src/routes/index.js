@@ -14,6 +14,7 @@ const Sidebar = Loadable(lazy(() =>import("../components/sidebar/Sidebar")));
 const Topbar = Loadable(lazy(() =>import("../components/topbar/Topbar")));
 const WidgetL = Loadable(lazy(() =>import("../components/widgetLs/WidgetL")));
 const MenteeEdit = Loadable(lazy(() =>import("../pages/menteeEdit/MenteeEdit")));
+const DirectMsg = Loadable(lazy(() =>import("../pages/DirectMsg/DirectMessaging")));
 
 const ThemeRoutes = () => {
   const { state } = useAuth(); // Access the authentication state from the context
@@ -35,6 +36,7 @@ const ThemeRoutes = () => {
               <Route path="/Staff" element={<Staff />} />
               <Route path="/Student" element={<Student />} />
               <Route path="/widget" element={<WidgetL />} />
+              <Route path="/DirMsg" element={<DirectMsg />} />
               <Route path="*" element={ <Navigate to="/"  /> } />
             </Routes>
           </div>

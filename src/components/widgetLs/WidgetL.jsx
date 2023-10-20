@@ -20,7 +20,7 @@ const WidgetL = () => {
 
           <tr>
             <td className='user'>
-              <img src='https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg' alt='' />
+              <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
               <span>Dhanush</span>
             </td>
             <td className='date'>20 october 2023</td>
@@ -31,7 +31,7 @@ const WidgetL = () => {
           </tr>
           <tr>
             <td className='user'>
-              <img src='https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg' alt='' />
+              <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
               <span>Ganesh</span>
             </td>
             <td className='date'>21 october 2023</td>
@@ -42,7 +42,7 @@ const WidgetL = () => {
           </tr>
           <tr>
             <td className='user'>
-              <img src='https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg' alt='' />
+              <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
               <span>Balaji</span>
             </td>
             <td className='date'>18 October 2023</td>
@@ -53,7 +53,7 @@ const WidgetL = () => {
           </tr>
           {/* <tr>
             <td className='user'>
-              <img src='https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg' alt='' />
+              <img src='https://hdqwalls.com/wallpapers/thanos-avengers-infinity-4k-z8.jpg' alt='' />
               <span>Susan Carol</span>
             </td>
             <td className='date'>2 April 2022</td>

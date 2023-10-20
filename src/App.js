@@ -7,6 +7,7 @@ import { AuthProvider} from './components/Context/AuthContext'; // Import your A
 import { useAuth } from './components/Context/AuthContext';
 import Login from './pages/ResuableComponents/Login/Login' // Import your Login component
 import { RoleProvider } from './components/Context/RoleContext';
+import { ChatEngine } from 'react-chat-engine';
 
 function App() {
   const { state } = useAuth(); // Access the authentication state from the context
@@ -18,7 +19,7 @@ function App() {
   },[]);
 
   return (
-    // <Router>
+   
     <RoleProvider>
       <AuthProvider>
         <ScrollTop>
@@ -27,7 +28,6 @@ function App() {
         </ScrollTop>
       </AuthProvider>
       </RoleProvider>
-    // </Router>
   );
 }
 
