@@ -1,7 +1,8 @@
 .WidgetL {
-  flex: 2;
+  flex: 4;
   box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
   padding: 20px;
+  
 }
 .WidgetL h3 {
   font-size: 22px;
@@ -37,11 +38,15 @@ table {
 }
 table th {
   text-align-last: left;
+  padding-top: 20px;
 }
 table .user {
   display: flex;
   align-items: center;
   font-weight: 600;
+}
+td{
+  padding-top: 30px;
 }
 .date,
 .amount {

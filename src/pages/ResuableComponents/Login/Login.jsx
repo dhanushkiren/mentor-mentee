@@ -62,6 +62,8 @@ const Login = () => {
 			  dispatch({ type: 'LOGIN' });
 			  localStorage.setItem('authenticated', true);
 			  localStorage.setItem('userRole', data.role);
+			  localStorage.setItem('id', data.id);
+			  console.log("id to show :", data.id);
 			  setRole(data.role);
 			  window.location.reload();
 			  navigate('/');

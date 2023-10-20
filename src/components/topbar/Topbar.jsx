@@ -3,12 +3,14 @@ import "./topbar.css"
 import { LanguageRounded, NotificationsOutlined, Settings } from "@mui/icons-material"
 
 const Topbar = () => {
+  const userRole = localStorage.getItem('userRole');
   return (
     <>
       <div className='tobar'>
         <div className='topbarWrapper'>
           <div className='topLeft'>
             <span className='logo'>Dashboad</span>
+            <span className='logo' style={{marginLeft: '6rem'}}>Welcome {userRole} 👋</span>
           </div>
           <div className='topRight'>
             <div className='topbarIconsContainer'>

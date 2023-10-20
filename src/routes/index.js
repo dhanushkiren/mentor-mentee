@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Loadable from '../components/Loadable'
 import { useAuth } from '../components/Context/AuthContext';
 
-
 const Home = Loadable(lazy(() =>import("../pages/home/Home")));
 const UserList = Loadable(lazy(() =>import("../pages/userList/UserList")));
 const User = Loadable(lazy(() =>import("../pages/user/User")));
@@ -13,7 +12,9 @@ const Staff = Loadable(lazy(() =>import("../pages/Staff/Staff")));
 const Student = Loadable(lazy(() =>import("../pages/Student/Student")));
 const Sidebar = Loadable(lazy(() =>import("../components/sidebar/Sidebar")));
 const Topbar = Loadable(lazy(() =>import("../components/topbar/Topbar")));
+const WidgetL = Loadable(lazy(() =>import("../components/widgetLs/WidgetL")));
 const MenteeEdit = Loadable(lazy(() =>import("../pages/menteeEdit/MenteeEdit")));
+
 const ThemeRoutes = () => {
   const { state } = useAuth(); // Access the authentication state from the context
 
@@ -33,6 +34,7 @@ const ThemeRoutes = () => {
               <Route path="/newUser" element={<NewUser />} />
               <Route path="/Staff" element={<Staff />} />
               <Route path="/Student" element={<Student />} />
+              <Route path="/widget" element={<WidgetL />} />
               <Route path="*" element={ <Navigate to="/"  /> } />
             </Routes>
           </div>

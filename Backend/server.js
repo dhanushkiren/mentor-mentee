@@ -39,7 +39,8 @@ app.post('/login', (req, res) => {
       if (result.length > 0) {
         console.log("result: ", result);
         const role = result[0].role;
-        res.status(200).json({ message: 'Login Successful', role: role });
+        const id = result[0].uid;
+        res.status(200).json({ message: 'Login Successful', role: role, id: id });
         console.log("login success");
       } else {
         res.status(401).send('Invalid Credentials');
@@ -167,6 +168,26 @@ app.get('/userdata/:id', (req, res) => {
     }
   });
 });
+
+// mentor get mentee list
+app.post('/students', (req, res) => {
+  const { mentorUid } = req.body;
+  console.log("id to show :",mentorUid);
+
+  // Query the database to fetch students based on mentor_uid
+  const query = `SELECT * FROM mentee WHERE mentor_uid = ?`;
+
+  db.query(query, [mentorUid], (err, results) => {
+    if (err) {
+      console.error('Error fetching students from the database: ' + err);
+      res.status(500).json({ error: 'An error occurred' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

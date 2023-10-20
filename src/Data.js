@@ -1,51 +1,51 @@
 export const UserData = [
   {
     name: "Jan",
-    "Active User": 4000,
+    "skill score": 400,
   },
   {
     name: "Feb",
-    "Active User": 3000,
+    "skill score": 300,
   },
   {
     name: "Mar",
-    "Active User": 2000,
+    "skill score": 200,
   },
   {
     name: "April",
-    "Active User": 1000,
+    "skill score": 100,
   },
   {
     name: "May",
-    "Active User": 4000,
+    "skill score": 400,
   },
   {
     name: "Jun",
-    "Active User": 5000,
+    "skill score": 500,
   },
   {
     name: "July",
-    "Active User": 9000,
+    "skill score": 900,
   },
   {
     name: "Aug",
-    "Active User": 8000,
+    "skill score": 800,
   },
   {
     name: "Sept",
-    "Active User": 10000,
+    "skill score": 1000,
   },
   {
     name: "Oct",
-    "Active User": 11000,
+    "skill score": 1100,
   },
   {
     name: "Nov",
-    "Active User": 7000,
+    "skill score": 700,
   },
   {
     name: "Dec",
-    "Active User": 4000,
+    "skill score": 400,
   },
 ]
 export const UserRows = [

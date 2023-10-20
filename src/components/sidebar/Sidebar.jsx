@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, WorkOutline } from "@mui/icons-material";
+import { BarChart,TrendingUp, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, WorkOutline } from "@mui/icons-material";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
@@ -33,12 +33,17 @@ const Sidebar = () => {
                     <Timeline className="sidebarIcon" />
                     Staff
                   </Link>
-                  {/* <Link to="/Student" className="sidebarListItem">
+                  </>
+                  )}
+                  { userRole === "mentor" && (
+                    <>
+                    <Link to="/Student" className="sidebarListItem">
                     <TrendingUp className="sidebarIcon" />
                     Students
-                  </Link> */}
-                </>
-              )}
+                  </Link>
+                  </>
+                  )}
+                  
               {/* Add more menu items based on the user's role */}
             </ul>
           </div>
@@ -74,11 +79,19 @@ const Sidebar = () => {
               <div className="sidebarMenu">
                 <h3>Approval</h3>
                 <ul className="sidebarList">
-                      <Link className="sidebarListItem">
+                      {/* <Link className="sidebarListItem">
                         <MailOutline className="sidebarIcon" />
                         Leave
-                      </Link>
-                      <Link className="sidebarListItem">
+                      </Link> */}
+                      {userRole === 'mentee' && (
+                        
+                          <Link to='/pdfupload' className="sidebarLink">
+                            <WorkOutline className="sidebarIcon" />
+                            upload
+                          </Link>
+                        
+                      )}
+                      <Link to='/widget' className="sidebarListItem">
                         <DynamicFeed className="sidebarIcon" />
                         On Duty
                       </Link>
@@ -99,6 +112,7 @@ const Sidebar = () => {
               </Link>
             </ul>
           </div>
+          
         </div>
       </div>
     </>

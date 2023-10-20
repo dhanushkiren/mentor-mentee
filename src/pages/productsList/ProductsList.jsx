@@ -4,24 +4,19 @@ import { DataGrid } from "@mui/x-data-grid"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 // import { UserRows } from "../../Data"
 import { Link } from "react-router-dom"
+import { ApiConfig } from "../../components/ApiConfig"
 
 const ProductsList = () => {
   const [menteeData, setMenteeData] = useState([]);
   
     useEffect(() => {
         // Fetch staff data when the component mounts
-        fetch('http://localhost:8081/menteelist')
+        fetch(ApiConfig.menteeList)
           .then((response) => response.json())
           .then((data) => setMenteeData(data))
           .catch((error) => console.error('Error fetching staff data:', error));
       }, []);
 
-      // useEffect(() => {
-      //   window.location.reload();
-      // },[staffData]);
-    
-  //     console.log("staffdata : ",staffData);
-  // const [data, setData] = useState(UserRows)
  
   const handleDelete = (id) => {
     setMenteeData(menteeData.filter((menteeMember) => menteeMember.id !== id));
