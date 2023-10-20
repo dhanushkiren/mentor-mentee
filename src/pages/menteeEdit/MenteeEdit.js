@@ -69,9 +69,9 @@ function MenteeEdit() {
       .then((data) => {
         console.log("Data updated successfully:", data);
         setMenteeData(menteeupData);
-        navigate('/mentees');
       })
       .catch((error) => console.error('Error updating user data:', error));
+      navigate('/mentees');
   }
 
   return (
