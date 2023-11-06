@@ -11,7 +11,7 @@ const Student = () => {
 
     useEffect(() => {
         getData();
-      }, []);
+      });
 
       async function getData(){
         try{

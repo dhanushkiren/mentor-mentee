@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart,TrendingUp, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PersonOutline, Storefront, Timeline, WorkOutline } from "@mui/icons-material";
+import { BarChart,TrendingUp, ChatBubbleOutline, DynamicFeed, LineStyle, PersonOutline, Storefront, Timeline, WorkOutline } from "@mui/icons-material";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";

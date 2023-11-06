@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { ApiConfig } from "../ApiConfig"
 import "./feature.css"
-import { useAuth } from "../Context/AuthContext";
+// import { useAuth } from "../Context/AuthContext";
 
 const Feature = () => {
   const [mentorCount, setMentorCount] = useState(0);
@@ -25,7 +25,7 @@ const Feature = () => {
 
     getData();
 
-}, []);
+});
 
   async function getData(){
     try{
