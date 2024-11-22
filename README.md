@@ -4,12 +4,16 @@ FXEC internal Hackathon Project
 
 ## DEMO
 
+the Graphs and Analytic UIs are the predefined code and it is not used with the student and staff data. it it only used for the UI Enhancement.
+
 
 https://github.com/user-attachments/assets/09f8301a-3548-402c-9427-61aed2a427f7
 
 
 
 ## Auth Token Enabled application
+
+this application uses JWT token for the login.
 
 https://github.com/user-attachments/assets/16e8bd70-aa4b-4bc1-8a9b-a57e0c4e0055
 
