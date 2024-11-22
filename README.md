@@ -2,6 +2,18 @@
 
 FXEC internal Hackathon Project
 
+## DEMO
+
+
+https://github.com/user-attachments/assets/09f8301a-3548-402c-9427-61aed2a427f7
+
+
+
+## Auth Token Enabled application
+
+https://github.com/user-attachments/assets/16e8bd70-aa4b-4bc1-8a9b-a57e0c4e0055
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -26,25 +38,13 @@ Detailed Steps to run the application
 download dependencies.
 3. run the application 'npm start'
 
-4. admin@1
-Admin@123456
+
+admin@1
+Admin@11
 
 mentor@1
-Mentor@111
-
-mentor@2
-Mentor@222
+Mentor@11
 
 mentee@1
-Mentee@111
-
-	
-mentee@2
-Mentee@222
-
-mentee@3
-Mentee@333
-
-mentee@4
-Mentee@444
+Mentee@11
         
