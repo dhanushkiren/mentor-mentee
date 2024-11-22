@@ -7,7 +7,7 @@ const Home = Loadable(lazy(() =>import("../pages/home/Home")));
 const UserList = Loadable(lazy(() =>import("../pages/userList/UserList")));
 const User = Loadable(lazy(() =>import("../pages/user/User")));
 const NewUser = Loadable(lazy(() =>import("../pages/newUser/NewUser")));
-const ProductsList = Loadable(lazy(() =>import("../pages/productsList/ProductsList")));
+const MenteeList = Loadable(lazy(() =>import("../pages/productsList/MenteeList")));
 const Staff = Loadable(lazy(() =>import("../pages/Staff/Staff")));
 const Student = Loadable(lazy(() =>import("../pages/Student/Student")));
 const Sidebar = Loadable(lazy(() =>import("../components/sidebar/Sidebar")));
@@ -30,7 +30,7 @@ const ThemeRoutes = () => {
               <Route path="/" element={<Home />} />
               <Route path="/users" element={<UserList />} />
               <Route path="/user/:userId" element={<User />} />
-              <Route path="/mentees" element={<ProductsList />} />
+              <Route path="/mentees" element={<MenteeList />} />
               <Route path="/mentee/:menteeId" element={<MenteeEdit />} />
               <Route path="/newUser" element={<NewUser />} />
               <Route path="/Staff" element={<Staff />} />

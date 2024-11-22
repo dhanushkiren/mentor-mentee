@@ -6,18 +6,24 @@ import './Staff.css';
 
 const Staff = () => {
     const [staffData, setStaffData] = useState([]);
-    
+
     useEffect(() => {
         // Fetch staff data when the component mounts
         fetch('http://localhost:8081/mentorlist')
-          .then((response) => response.json())
-          .then((data) => setStaffData(data))
-          .catch((error) => console.error('Error fetching staff data:', error));
-      }, []);
-    
-      console.log("staffdata : ",staffData);
+            .then((response) => response.json())
+            .then((data) => {
+                // Add sequential IDs to each staff member
+                const dataWithIds = data.map((staff, index) => ({
+                    ...staff,
+                    id: index + 1, // Generate a sequential ID starting from 1
+                }));
+                setStaffData(dataWithIds);
+            })
+            .catch((error) => console.error('Error fetching staff data:', error));
+    }, []);
 
-    // const handleDelete = (id) => {
+    console.log("staffdata : ", staffData);
+// const handleDelete = (id) => {
     //     setStaffData(staffData.filter((staffMember) => staffMember.id !== id));
     // };
 
@@ -28,7 +34,6 @@ const Staff = () => {
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'uid', headerName: 'UID', flex: 1 },
         { field: 'name', headerName: 'Name', flex: 1 },
         { field: 'department', headerName: 'Department', flex: 1 },
         { field: 'designation', headerName: 'Designation', flex: 1 },
@@ -53,7 +58,7 @@ const Staff = () => {
         <div className="staff">
             <h2>Staff List</h2>
             <div style={{ height: 650, width: '100%' }}>
-                <DataGrid rows={staffData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} />
+                <DataGrid rows={staffData} columns={columns} pageSize={10} rowsPerPageOptions={[5, 10, 25]} />
             </div>
         </div>
     );

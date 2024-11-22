@@ -6,7 +6,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import { Link } from "react-router-dom"
 import { ApiConfig } from "../../components/ApiConfig"
 
-const ProductsList = () => {
+const MenteeList = () => {
   const [menteeData, setMenteeData] = useState([]);
   
     useEffect(() => {
@@ -24,7 +24,6 @@ const ProductsList = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'uid', headerName: 'UID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'department', headerName: 'Department', flex: 1 },
     { field: 'mentor_uid', headerName: 'Mentor ID', flex: 1 },
@@ -49,10 +48,10 @@ return (
     <div className="ProductsList">
         <h2>Mentee List</h2>
         <div style={{ height: 650, width: '100%' }}>
-            <DataGrid rows={menteeData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} />
+            <DataGrid rows={menteeData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} getRowId={(row) => row._id} />
         </div>
     </div>
 );
 };
 
-export default ProductsList
+export default MenteeList

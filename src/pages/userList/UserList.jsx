@@ -30,7 +30,6 @@ const UserList = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'uid', headerName: 'UID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'department', headerName: 'Department', flex: 1 },
     { field: 'Designation', headerName: 'Designation', flex: 1 },
@@ -56,7 +55,7 @@ return (
     <div className="UserList">
         <h2>Staff List</h2>
         <div style={{ height: 650, width: '100%' }}>
-            <DataGrid rows={staffData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} />
+            <DataGrid rows={staffData} columns={columns} pageSize={10} rowsPerPageOptions={[5,10,25]} getRowId={(row) => row._id} />
         </div>
     </div>
 );

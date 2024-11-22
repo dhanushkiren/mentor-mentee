@@ -1,194 +1,202 @@
 const express = require('express');
-const mysql = require('mysql');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+// Express app setup
 const app = express();
 app.use(cors());
-const port = 8081;
-
 app.use(bodyParser.json());
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'sample_login',
+const port = 8081;
+
+// MongoDB Connection
+mongoose
+  .connect('mongodb://localhost:27017/sample_login', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
+
+// MongoDB Schemas and Models
+const AdminSchema = new mongoose.Schema({
+  uid: String,
+  pass: String,
+  role: String,
 });
 
+const MentorSchema = new mongoose.Schema({
+  name: String,
+  department: String,
+  designation: String,
+  email: String,
+  phone: String,
+});
 
-db.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-  } else {
-    console.log('Connected to MySQL');
+const MenteeSchema = new mongoose.Schema({
+  name: String,
+  department: String,
+  year: Number,
+  mentor_uid: String,
+  achievements: String,
+});
+
+const Admin = mongoose.model('Admin', AdminSchema);
+const Mentor = mongoose.model('Mentor', MentorSchema);
+const Mentee = mongoose.model('Mentee', MenteeSchema);
+
+// Login
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const admin = await Admin.findOne({ uid: username, pass: password });
+    if (admin) {
+      res.status(200).json({
+        message: 'Login Successful',
+        role: admin.role,
+        id: admin.uid,
+      });
+    } else {
+      res.status(401).send('Invalid Credentials');
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
-// login 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const query = `SELECT * FROM admin WHERE uid = ? AND pass = ?`;
-
-  db.query(query, [username, password], (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
-        console.log('Internal Server Error');
-    } else {
-      if (result.length > 0) {
-        console.log("result: ", result);
-        const role = result[0].role;
-        const id = result[0].uid;
-        res.status(200).json({ message: 'Login Successful', role: role, id: id });
-        console.log("login success");
-      } else {
-        res.status(401).send('Invalid Credentials');
-        console.log("Invalid Credentials");
-      }
-    }
-  });
+// Get mentor count
+app.get('/mentors/count', async (req, res) => {
+  try {
+    const count = await Mentor.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching mentor count:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// mentor count 
-app.get('/mentors/count', (req, res) => {
-  const query = 'SELECT COUNT(*) as count FROM mentor';
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.status(200).json({ count: result[0].count });
-    }
-  });
+// Get mentee count
+app.get('/mentees/count', async (req, res) => {
+  try {
+    const count = await Mentee.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching mentee count:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// mentee count
-app.get('/mentees/count', (req, res) => {
-  const query = 'SELECT COUNT(*) as count FROM mentee';
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.status(200).json({ count: result[0].count });
-    }
-  });
+// Get mentor list
+app.get('/mentorlist', async (req, res) => {
+  try {
+    const mentors = await Mentor.find();
+    res.status(200).json(mentors);
+  } catch (error) {
+    console.error('Error fetching mentors:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// mentor list
-app.get('/mentorlist', (req, res) => {
-  const query = 'SELECT * FROM mentor';
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.status(200).json(result);
-    }
-  });
+// Get mentee list
+app.get('/menteelist', async (req, res) => {
+  try {
+    const mentees = await Mentee.find();
+    res.status(200).json(mentees);
+  } catch (error) {
+    console.error('Error fetching mentees:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// mentee list
-app.get('/menteelist', (req, res) => {
-  const query = 'SELECT * FROM mentee';
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.status(200).json(result);
-    }
-  });
-});
-
-// delete staff
-app.delete('/staff/:userId', (req, res) => {
-  const { id } = req.params;
-  const query = 'DELETE FROM staff WHERE id = ?';
-  db.query(query, [id], (err, result) => {
-    if (err) {
-      console.error('Error deleting staff record:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
+// Delete staff
+app.delete('/staff/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const result = await Mentor.findByIdAndDelete(userId);
+    if (result) {
       res.status(200).json({ message: 'Staff record deleted successfully' });
+    } else {
+      res.status(404).send('Staff not found');
     }
-  });
+  } catch (error) {
+    console.error('Error deleting staff:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-//update staff
-app.put('/staffupdate/:id', (req, res) => {
-  const id = +req.params.id;
-  console.log(id);
+// Update staff
+app.put('/staffupdate/:id', async (req, res) => {
+  const { id } = req.params;
   const { name, department, designation, email, phone } = req.body;
-  const query = 'UPDATE mentor SET name = ?, department = ?, designation = ?, email = ?, phone = ? WHERE id = ?';
-  db.query(query, [name, department, designation, email, phone, id], (err, result) => {
-    if (err) {
-      console.error('Error updating staff record:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
+  try {
+    const updatedStaff = await Mentor.findByIdAndUpdate(
+      id,
+      { name, department, designation, email, phone },
+      { new: true }
+    );
+    if (updatedStaff) {
       res.status(200).json({ message: 'Staff record updated successfully' });
+    } else {
+      res.status(404).send('Staff not found');
     }
-  });
+  } catch (error) {
+    console.error('Error updating staff:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-//mentee update
-app.put('/menteeupdate/:id', (req, res) => {
-  const id = +req.params.id;
-  console.log(id);
-  const { name, department, year, mentorId, achievements } = req.body;
-  const query = 'UPDATE mentee SET name = ?, department = ?, year = ?, mentor_uid = ?, achievements = ? WHERE id = ?';
-  db.query(query, [name, department, year, mentorId, achievements, id], (err, result) => {
-    if (err) {
-      console.error('Error updating mentee record:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
+// Update mentee
+app.put('/menteeupdate/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, department, year, mentor_uid, achievements } = req.body;
+  try {
+    const updatedMentee = await Mentee.findByIdAndUpdate(
+      id,
+      { name, department, year, mentor_uid, achievements },
+      { new: true }
+    );
+    if (updatedMentee) {
       res.status(200).json({ message: 'Mentee record updated successfully' });
-    }
-  });
-});
-
-
-// solo data 
-app.get('/userdata/:id', (req, res) => {
-  const { id } = req.params; // Get the `id` parameter from the URL
-  const query = 'SELECT * FROM mentor WHERE id = ?'; // Adjust the table name and query as needed
-
-  db.query(query, [id], (err, result) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).send('Internal Server Error');
     } else {
-      if (result.length > 0) {
-        const userData = result[0];
-        res.status(200).json(userData);
-      } else {
-        res.status(404).send('User not found');
-      }
+      res.status(404).send('Mentee not found');
     }
-  });
+  } catch (error) {
+    console.error('Error updating mentee:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// mentor get mentee list
-app.post('/students', (req, res) => {
+// Get solo mentor data
+app.get('/userdata/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const mentor = await Mentor.findById(id);
+    if (mentor) {
+      res.status(200).json(mentor);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Get mentees of a specific mentor
+app.post('/students', async (req, res) => {
   const { mentorUid } = req.body;
-  console.log("id to show :",mentorUid);
-
-  // Query the database to fetch students based on mentor_uid
-  const query = `SELECT * FROM mentee WHERE mentor_uid = ?`;
-
-  db.query(query, [mentorUid], (err, results) => {
-    if (err) {
-      console.error('Error fetching students from the database: ' + err);
-      res.status(500).json({ error: 'An error occurred' });
-    } else {
-      res.json(results);
-    }
-  });
+  try {
+    const mentees = await Mentee.find({ mentor_uid: mentorUid });
+    res.status(200).json(mentees);
+  } catch (error) {
+    console.error('Error fetching mentees:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-
-
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
